@@ -1,0 +1,28 @@
+body {
+  background-color: tomato;
+  height: 90vh;
+}
+
+.submit-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-form > label {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.submit-form > input {
+  width: 50rem;
+  height: 3rem;
+  margin-bottom: 2rem;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
