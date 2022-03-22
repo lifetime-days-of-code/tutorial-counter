@@ -1,8 +1,10 @@
-const fs = require("fs");
 const express = require("express");
 const path = require("path");
-
 const app = express();
+
+const defaultRoutes = require("./routes/default");
+const coursesRoutes = require("./routes/courses");
+
 // this should be the first thing to do after defining the app if we want to use ejs
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -13,44 +15,21 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 const PORT = 3000 || ENV.SERVER;
+// every request that start with a "/" should be handled by defaultRoutes
+app.use("/", defaultRoutes);
+app.use("/", coursesRoutes);
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.use(function (req, res) {
+  // we are using status so we can communicate to the browser that this request leaded to failure 404 page.
+  // because previously in the dev tools the status was 200 because in reality it served a 404 page.
+  res.status(404).render("404");
+  // this needs to be here because the code is executed top to bottom and this should be the last stop
+  // this will kick in whenever we have a request that's not handled by any of the other routes
 });
 
-app.get("/about", (req, res) => {
-  res.render("about");
-});
-
-app.get("/tutorials", (req, res) => {
-  const filePath = path.join(__dirname, "data", "courses.json");
-
-  const fileData = fs.readFileSync(filePath);
-  const storedCourses = JSON.parse(fileData);
-
-  res.render("tutorials", { numberOfRestaurants: storedCourses.length });
-});
-
-app.get("/recommend", (req, res) => {
-  res.render("recommend");
-});
-
-app.post("/recommend", (req, res) => {
-  // const courseName = req.body.coursename;
-  // const courseUrl = req.body.courseurl;
-  // const usedEmail = req.body.email;
-  // const userName = req.body.username;
-  // const startingDate = req.body.date;
-  const course = req.body;
-  const filePath = path.join(__dirname, "data", "courses.json");
-
-  const fileData = fs.readFileSync(filePath);
-  const storedCourses = JSON.parse(fileData);
-
-  storedCourses.push(course);
-  fs.writeFileSync(filePath, JSON.stringify(storedCourses));
-
-  res.redirect("/recommend");
+// we need ot pass all the 4 parameters so express can understand that this is a special error handling function
+app.use(function (error, req, res, next) {
+  res.status(500).render("500");
 });
 
 app.listen(PORT, () => {

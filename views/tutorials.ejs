@@ -2,28 +2,31 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./styles/global.css">
-
-  <title>Tutorial list</title>
+  <%- include('includes/head', {title: 'Tutorial list' }) %>
 </head>
 
 <body>
-  <h1>Tutorial list</h1>
-  <p>You have <%= numberOfRestaurants %> tutorials</p>
-  <ul>
-    <li>List 1</li>
-    <li>List 2</li>
-    <li>List 3</li>
-    <li>List 4</li>
-    <li>List 5</li>
-  </ul>
-  <a href="/about">About</a>
-  <a href="/">Home</a>
-  <a href="/recommend">Recommended</a>
+  <%- include('includes/header') %>
 
+    <% if(numberOfTutorials===0) {%>
+      <h1>No tutorials to display</h1>
+      <% }else{ %>
+
+        <h1>Tutorial list</h1>
+        <p>You have <%= numberOfTutorials %> tutorials</p>
+        <%}%>
+          <form action="/tutorials" method="GET">
+            <!-- Because we don't want to have a input field where the user is able to enter something. -->
+            <!--Instead we want to have a predefined a value which we as a developers defined -->
+            <!--We are using GET because we are not handling user data. We want to reload the page. -->
+            <input type="hidden" value="<%= nextOrder %>" name="order">
+            <button>Change order</button>
+          </form>
+          <ul>
+            <% for(const tutorial of tutorials) { %>
+              <%- include('includes/tutorials/tutorial-items', {tutorial: tutorial}) %>
+                <%}%>
+          </ul>
 </body>
 
 </html>

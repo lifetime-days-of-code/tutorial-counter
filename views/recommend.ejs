@@ -2,29 +2,26 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./styles/global.css">
-  <title>Recommend</title>
+  <%- include('includes/head', {title: 'Recommend' }) %>
 </head>
 
 <body>
-  <form class="submit-form" action="/recommend" method="POST">
-    <label for="coursename">Course name</label>
-    <input type="text" id="coursename" name="coursename">
-    <label for="courseurl">Course url</label>
-    <input type="text" id="courseurl" name="courseurl">
-    <label for="email">Used email</label>
-    <input type="email" name="email" id="email">
-    <label for="email">User name</label>
-    <input type="text" name="username" id="username">
-    <label for="date">Start date</label>
-    <input type="date" name="date" id="date">
-    <button>Submit</button>
-  </form>
-  <a href="/">Home</a>
-  <a href="/about">About</a>
+  <%- include('includes/header') %>
+    <form class="submit-form" action="/recommend" method="POST">
+      <label for="coursename">Course name</label>
+      <input type="text" id="coursename" name="coursename">
+      <label for="courseurl">Course url</label>
+      <input type="text" id="courseurl" name="courseurl">
+      <label for="email">Used email</label>
+      <input type="email" name="email" id="email">
+      <label for="email">User name</label>
+      <input type="text" name="username" id="username">
+      <label for="date">Start date</label>
+      <input type="date" name="date" id="date">
+      <button>Submit</button>
+    </form>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
 </body>
 
 </html>

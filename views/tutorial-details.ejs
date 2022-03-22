@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('includes/head', {title: 'Tutorial list' }) %>
+</head>
+
+<body>
+  <%- include('includes/header') %>
+    <main>
+      <h1>
+        <%= tutorial.coursename %>
+      </h1>
+      <p>
+        <%= tutorial.email %>
+      </p>
+      <p>
+        <%= tutorial.username %>
+      </p>
+      <p>
+        <%= tutorial.date %>
+      </p>
+      <p><a href="<%= tutorial.courseurl %>">View tutorial webpage</a></p>
+    </main>
+</body>
+
+</html>
